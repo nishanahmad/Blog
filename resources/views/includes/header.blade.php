@@ -18,12 +18,11 @@
 	<!-- Navigation -->
 	<nav id="nav">
 		<ul class="main-menu nav navbar-nav navbar-right">
-			<li><a href="index.html">Home</a></li>
+			<li><a href="http://test.kannurtown.website">Home</a></li>
 			<li><a href="#">About</a></li>
-			<!--li><a href="#">Courses</a></li-->
-			<li><a href="blog.html">Blog</a></li>
-			<li><a href="contact.html">Contact</a></li>
-			<li><a href="http://certification.kannurtown.website">Student Login</a></li>
+			<li><a href="#">Blog</a></li>
+			<li><a href="http://certification.kannurtown.website">Student login</a></li>
+			<li><a href="/author">Admin</a></li>
 		</ul>
 	</nav>
 </div>

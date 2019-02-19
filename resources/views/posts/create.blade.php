@@ -2,6 +2,7 @@
 
 @section('content')
   <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=wbas0lwjmrkeim9qhkkrujy3eojy65d8fwkk20pecgkmm8as"></script>
   <script>tinymce.init({ 
 						selector:'textarea',
 						plugins : 'advlist autolink link image lists charmap print preview 	table 	textcolor'						

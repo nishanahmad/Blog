@@ -2,15 +2,15 @@
 <html>
 <head>
     @include('includes.head')
-</head>
-<body>
 	<section class="wrapper">
-		@if(Auth::check())
+		@if(Auth::check() && Request::is('author*'))
 			@include('includes.authHeader')
 		@else
 			@include('includes.header')
 		@endif
-	</section>  	
+	</section>  		
+</head>
+<body>
 	<section id="main-content">
 	  <section class="wrapper">
 			@yield('content')

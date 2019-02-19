@@ -122,24 +122,16 @@
     <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="{{route('author.home')}}">Home</a>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Mission</a></li>
-            <li><a href="#">Vision</a></li>
-            <li><a href="#">Careers</a></li>
-          </ul>
+          <a href="{{route('home')}}">Blog Home</a>
         </li>
         <li>
-          <a href="#">Products</a>
+          <a href="{{ route('author.home') }}">Posts</a>
         </li>
-        <li>
-          <a href="#">Services</a>
-        </li>
-        <li class="active">
-          <a href="#">Contact</a>
+		<li><a class="logout" <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout</a>
+			<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				{{ csrf_field() }}
+			</form>
+		</li>		
         </li>
       </ul>
     </nav>

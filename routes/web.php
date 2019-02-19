@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/home', 'PostController@index')->name('home');
 
-Route::get('/author', 'HomeController@index')->name('author.home');
+Route::get('/author', 'PostController@authorIndex')->name('author.home');
 Route::get('/author/post', 'PostController@create')->name('posts.create');
 Route::post('/author/post', 'PostController@insert');
 Route::get('/author/post/{id}', 'PostController@show')->name('posts.preview');

@@ -10,22 +10,14 @@ use Illuminate\Support\Facades\Input;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+		$this->middleware('auth', ['except' => ['index','read',]]);
+    } 	
+	
     public function index() 
 	{
-        $posts = DB::table('users')->leftjoin('posts', 'users.id', '=', 'posts.author')->paginate(4);
-        $archives = DB::table('posts')->orderBy('id', 'DESC')->get();
-
-        $data = array(
-            'posts' => $posts,
-            'archives' => $archives
-		);
-		
-        return view('posts/list', $data);
-    }
-	
-    public function authorIndex() 
-	{
-        $posts = DB::table('users')->leftjoin('posts', 'users.id', '=', 'posts.author')->paginate(4);
+        $posts = DB::table('users')->leftjoin('posts', 'users.id', '=', 'posts.user_id')->paginate(4);
         $archives = DB::table('posts')->orderBy('id', 'DESC')->get();
 
         $data = array(
@@ -34,6 +26,13 @@ class PostController extends Controller
 		);
 		
         return view('posts/index', $data);
+    }
+	
+    public function authorIndex() 
+	{
+		$posts = Post::all();		
+		
+        return view('posts/authorIndex', compact('posts'));
     }	
 	
     public function create() 
@@ -62,13 +61,13 @@ class PostController extends Controller
 		$post = new Post(array(
 			'title' => Input::get('title'),
 			'description' => Input::get('description'),
-			'author' => Auth::user()->id,
+			'user_id' => Auth::user()->id,
 			'thumbnail' => $thumbnail
 		));			
 			
 		try{
 			$post -> save();
-			return redirect()->route('home')->with('success', 'Post has been successfully added!');
+			return redirect()->route('author.home')->with('success', 'Post has been successfully added!');
 		}
 		catch(\Exception $e){
 			echo $e->getMessage();
@@ -83,7 +82,7 @@ class PostController extends Controller
 	
     public function edit($id) 
 	{
-        $post = DB::table('users')->leftjoin('posts', 'users.id', '=', 'posts.author')->where('posts.id', '=', $id)->first();
+        $post = DB::table('users')->leftjoin('posts', 'users.id', '=', 'posts.user_id')->where('posts.id', '=', $id)->first();
         return view('posts/edit', ['post' => $post]);
     }
 
@@ -93,19 +92,19 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->description = $request->description;
         $post->save();
-        return redirect()->route('home')->with('success', 'Post has been updated successfully!');
+        return redirect()->route('author.home')->with('success', 'Post has been updated successfully!');
     }
 
     public function destroy($id) 
 	{
         $post = Post::find($id);
         $post->delete();
-        return redirect()->route('home')->with('success', 'Post has been deleted successfully!');
+        return redirect()->route('author.home')->with('success', 'Post has been deleted successfully!');
     }
 
     public function read($id) 
 	{
-        $post = DB::table('users')->leftjoin('posts', 'users.id', '=', 'posts.author')->where('posts.id', '=', $id)->first();
+        $post = DB::table('users')->leftjoin('posts', 'users.id', '=', 'posts.user_id')->where('posts.id', '=', $id)->first();
         return view('posts.read', ['post' => $post]);
     }
 }
